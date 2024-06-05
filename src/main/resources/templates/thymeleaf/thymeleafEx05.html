@@ -16,5 +16,9 @@
     <div>
         <a th:href="@{/thymeleaf/ex06(param1 = '파라미터 데이터1', param2 = '파라미터 데이터2')}">파라미터 전달</a>
     </div>
+
+    <div>
+        <a th:href="@{/thymeleaf/{param1}(param1='ex08', param2='값전달')}">path</a>
+    </div>
 </body>
 </html>
