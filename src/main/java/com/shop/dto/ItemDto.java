@@ -5,11 +5,8 @@ import lombok.*;
 
 import java.time.LocalDateTime;
 
-@Getter
-@Setter
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
+@Getter @Setter
+@Builder @NoArgsConstructor @AllArgsConstructor
 public class ItemDto {
 
     private Long id;
