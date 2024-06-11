@@ -19,7 +19,7 @@ class OrderItemTest {
         order.setId(10L);
         order.setOrderDate(LocalDateTime.now());
 
-        order.getOrderItem();
+        order.getOrderItems();
         OrderItem orderItem = new OrderItem();
         orderItem.setOrder(order);
 

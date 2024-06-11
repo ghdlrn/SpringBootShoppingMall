@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Entity @Table(name = "member")
 @Getter@Setter @ToString
 @Builder @AllArgsConstructor @NoArgsConstructor
-public class Member {
+public class Member extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
