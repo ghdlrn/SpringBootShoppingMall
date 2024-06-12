@@ -1,8 +1,14 @@
 package com.shop.dto;
 
 import com.shop.entity.ItemImg;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+import lombok.extern.log4j.Log4j2;
 import org.modelmapper.ModelMapper;
 
+@Getter @Setter @ToString
+@Log4j2
 public class ItemImgDto {
 
     private Long id;

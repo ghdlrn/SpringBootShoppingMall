@@ -2,6 +2,7 @@ package com.shop.dto;
 
 import com.shop.constant.ItemSellStatus;
 import com.shop.entity.Item;
+import com.shop.entity.ItemImg;
 import lombok.*;
 import org.modelmapper.ModelMapper;
 
@@ -34,4 +35,7 @@ public class ItemFormDto {
         return modelMapper.map(this, Item.class);
     }
 
+    public static ItemFormDto of(Item item) {
+        return modelMapper.map(item, ItemFormDto.class);
+    }
 }
