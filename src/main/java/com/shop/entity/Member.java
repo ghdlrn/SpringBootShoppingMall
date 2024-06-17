@@ -7,10 +7,14 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
 
-@Entity @Table(name = "member")
-@Getter@Setter @ToString
-@Builder @AllArgsConstructor @NoArgsConstructor
-public class Member extends BaseEntity {
+@Entity
+@Table(name = "member")
+@Getter@Setter
+@ToString
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+public class Member  extends BaseEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,7 +43,6 @@ public class Member extends BaseEntity {
                 .password(passwordEncoder.encode(memberFormDto.getPassword()))
                 .role(Role.ADMIN)
                 .build();
-
     }
 
 

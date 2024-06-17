@@ -6,10 +6,12 @@ import lombok.ToString;
 
 import javax.persistence.*;
 
-@Setter @Getter @ToString
-@Entity @Table(name = "cart_item")
-public class CartItem {
-
+@Setter
+@Getter
+@ToString
+@Entity
+@Table(name = "cart_item")
+public class CartItem extends BaseEntity {
     @Id
     @Column(name = "cart_item_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,8 +22,20 @@ public class CartItem {
     private Cart cart;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "item_id")
+    @JoinColumn(name = "item_id" )
     private Item item;
 
     private int count;
+
+    public static CartItem createCartItem(Cart cart, Item item, int count) {
+        CartItem cartItem = new CartItem();
+        cartItem.setCart(cart);
+        cartItem.setItem(item);
+        cartItem.setCount(count);
+        return cartItem;
+    }
+
+    public void addCount(int count) {
+        this.count += count;
+    }
 }

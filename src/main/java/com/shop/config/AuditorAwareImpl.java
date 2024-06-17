@@ -9,17 +9,14 @@ import java.util.Optional;
 
 @Log4j2
 public class AuditorAwareImpl implements AuditorAware<String> {
-
     @Override
     public Optional<String> getCurrentAuditor() {
         Authentication authentication =
                 SecurityContextHolder.getContext().getAuthentication();
-        log.info("===================================");
-        log.info("Current user: " + authentication.getName());
-        log.info("===================================");
 
         String userId = "";
-        if(authentication != null) {
+
+        if(authentication != null){
             userId = authentication.getName();
         }
         return Optional.of(userId);

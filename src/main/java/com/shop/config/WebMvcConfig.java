@@ -9,7 +9,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class WebMvcConfig implements WebMvcConfigurer {
 
     @Value("${uploadPath}")
-    private String uploadPath;
+    String uploadPath;
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {

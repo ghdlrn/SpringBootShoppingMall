@@ -1,6 +1,5 @@
 package com.shop.service;
 
-import com.shop.dto.ItemFormDto;
 import com.shop.entity.ItemImg;
 import com.shop.repository.ItemImgRepository;
 import lombok.RequiredArgsConstructor;
@@ -11,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import org.thymeleaf.util.StringUtils;
 
+import javax.persistence.EntityNotFoundException;
 import java.io.IOException;
 
 @Service
@@ -27,16 +27,40 @@ public class ItemImgService {
     private final FileService fileService;
 
     public void saveItemImg(ItemImg itemImg, MultipartFile itemImgFile) throws Exception {
-
         String oriImgName = itemImgFile.getOriginalFilename();
         String imgName = "";
         String imgUrl = "";
-        if(StringUtils.isEmpty(oriImgName)){    //파일 업로드
-            imgName = fileService.uploadFile(itemImgLocation, oriImgName, itemImgFile.getBytes());
-            imgUrl = "/images/item/" + imgName;
-            log.info("imgUrl : {}", imgUrl);
+
+        //파일 업로드
+        if(!StringUtils.isEmpty(oriImgName)){
+            imgName = fileService.uploadFile(itemImgLocation,oriImgName, itemImgFile.getBytes() );
+            imgUrl = "/images/item/"+ imgName;
+            log.info("imgUrl : " + imgUrl);
         }
-        itemImg.updateItmeImg(oriImgName, imgName, imgUrl);
+
+        //상품 이미지 저장
+        itemImg.updateItemImg(oriImgName, imgName, imgUrl);
         itemImgRepository.save(itemImg);
+    }
+
+    public void updateItemImg(Long itemImgId, MultipartFile itemImgFile) throws Exception{
+
+        if(!itemImgFile.isEmpty()) {
+
+            ItemImg savedItemImg = itemImgRepository.findById(itemImgId)
+                    .orElseThrow(() -> new EntityNotFoundException());
+
+
+            //기존이미지삭제
+            if (!StringUtils.isEmpty(savedItemImg.getImgName())){
+                fileService.deleteFile(itemImgLocation + "/" + savedItemImg.getImgName());
+            }
+
+            String oriImgName = itemImgFile.getOriginalFilename();
+            String imgName = fileService.uploadFile(itemImgLocation,oriImgName, itemImgFile.getBytes() );
+            String imgUrl = "/images/item/"+ imgName;
+
+            savedItemImg.updateItemImg(oriImgName, imgName, imgUrl);
+        }
     }
 }
